@@ -63,3 +63,4 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/annazx.png" width="200px">
 
 * Role: Developer
+* Responsibilities: Integration
