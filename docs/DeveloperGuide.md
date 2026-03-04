@@ -300,30 +300,65 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `CareContacts` and the **Actor** is the `Student Care Supervisor`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: UC1 - Add a student**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  Student Care Supervisor enters the add command with required and possibly optional parameters.
+2.  CareContacts adds the student to the address book.
+3.  CareContacts displays a success message confirming the student was added.
+
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 2a. CareContacts detects invalid command format.
 
-  Use case ends.
+    * 2a1. CareContacts displays an error message.
+    * 2a2. Student Care Supervisor enters the add command with required and possibly optional parameters.
+    * Steps 2a1-2a2 are repeated until the command is correct 
+      
 
-* 3a. The given index is invalid.
+      Use case ends.
 
-    * 3a1. AddressBook shows an error message.
+* 2b. CareContacts detects a duplicate student name.
 
-      Use case resumes at step 2.
+    * 2b1. CareContacts displays an error message.
+
+
+      Use case ends.
+
+**Use case: UC2 - Delete a student**
+
+**MSS**
+
+1.  Student Care Supervisor enters the delete command for an index number.
+2.  CareContacts deletes the student with the corresponding index number.
+3.  CareContacts display deletion success message.
+
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. CareContacts detects invalid command format.
+
+    * 2a1. CareContacts displays an error message.
+    * 2a2. Student Care Supervisor enters the add command with required and possibly optional parameters.
+    * Steps 2a1-2a2 are repeated until the command is correct
+
+
+      Use case ends.
+
+* 2b. CareContacts detects a duplicate student name.
+
+    * 2b1. CareContacts displays an error message.
+
+
+      Use case ends.
 
 *{More to be added}*
 
