@@ -4,7 +4,7 @@
   pageNav: 3
 ---
 
-# AB-3 Developer Guide
+# CareContacts Developer Guide
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -272,73 +272,141 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Product scope
 
-**Target user profile**:
+**Target user profile**: Student care supervisor
 
 * has a need to manage a significant number of contacts
-* prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* prefers CLI to GUI
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: Provides a fast and reliable way to retrieve parents' contact details, edit and record details with minimal effort. Optimized for users who are comfortable typing and prefers CLI to GUI
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
-|----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions       | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person             |                                                                        |
-| `* * *`  | user                                       | delete a person              | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name        | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name         | locate a person easily                                                 |
+| Priority | As a …​                                    | I want to …​                                               | So that I can…​                                                          |
+|----------|--------------------------------------------|------------------------------------------------------------|--------------------------------------------------------------------------|
+| `* * *`  | user                                       | add student’s contact                                      | add their contact information if they are a new student                  |
+| `* * *`  | user                                       | add a parent’s contact information under student’s contact | know which parent to contact for a specific student                      |
+| `* * *`  | user                                       | delete a student’s contact                                 | remove their contact information if they are no longer part of the class |
+| `* * *`  | new user                                   | see how each command works by typing help                  | learn how to use the CLI                                                 |
+| `* * *`  | user                                       | scroll to find a contact                                   | view the person’s contact information                                    |
+| `* *`    | user                                       | search for a parent’s name or a student’s name             | find the contact if I only remember one of their names                   |
+| `* *`    | user                                       | add dietary information about a student to a contact       | easily find the information via the address book                         |
+| `* *`    | user                                       | add pictures to contacts                                   | remember their faces                                                     |
+| `* *`    | user                                       | sort contacts by age                                       | easily know if there are missing people from each batch                  |
+| `* *`    | user                                       | mark the attendance of each student                        | keep track of who is absent during class                                 |
+| `* *`    | user                                       | update a parent's contact information                      | make changes to their phone number/address                               |
+| `* *`    | user                                       | mass delete contacts                                       | quickly remove multiple irrelevant contact information in one go         |
+| `* *`    | user                                       | archive contact information                                | preserve contact information, while not being able to actively view it   |
+| `* *`    | user                                       | see at a glance which students have allergies              | send them to buy their own meals                                         |
+| `* *`    | user                                       | associate pictures to student’s names                      | quickly inform teachers when parents contact me                          |
+| `* *`    | user                                       | mark which students have completed their homework          | keep track of which students have not completed their homework           |
+| `* *`    | user                                       | access student behaviour notes                             | respond appropriately to behavioural issues                              |
+| `* *`    | user                                       | group students by classroom                                | ensure only relevant teachers can access their information               |
+| `* *`    | user                                       | group classrooms by year/batch                             | archive graduated students easily                                        |
+| `* *`    | user                                       | associate a teacher with classroom(s)                      | grant them access to multiple student data at once                       |
+| `*`      | user                                       | filter by classroom or year                                | show only relevant students in the list                                  |
+| `*`      | user                                       | summarize the number of each dietary restrictions          | plan meals easier                                                        |
+| `*`      | user                                       | get notifications at dismissal times                       | dismiss students at the correct timings                                  |
 
 *{More to be added}*
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `CareContacts` and the **Actor** is the `Student Care Supervisor`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: UC1 - Add a student**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  Student Care Supervisor requests for a student and the student’s information to be stored for later reference.
+2.  CareContacts stores the student and the information related to the student.
+3.  CareContacts displays a success message confirming the student has been stored.
+
 
     Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 1a. CareContacts detects an invalid command format.
 
-  Use case ends.
+    * 1a1. CareContacts displays an error message.
+  
+      Use case ends.
 
-* 3a. The given index is invalid.
+* 1b. CareContacts detects a duplicate student name.
 
-    * 3a1. AddressBook shows an error message.
+    * 1b1. CareContacts displays an error message.
 
-      Use case resumes at step 2.
+      Use case ends.
+
+**Use case: UC2 - Delete a student**
+
+**MSS**
+
+1.  Student Care Supervisor requests for a student and the information related to the student to not be stored in the system.
+2.  CareContacts deletes the student with the corresponding index number.
+3.  CareContacts display deletion success message.
+
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. CareContacts detects an invalid command format.
+
+    * 1a1. CareContacts displays an error message.
+
+      Use case ends.
+
+**Use case: UC3 - List all student information**
+
+**MSS**
+
+1.  Student Care Supervisor requests for all the stored students to be listed.
+2.  CareContacts displays the list of all students added and all the information associated with each student.
+
+
+    Use case ends.
+
+**Use case: UC4 - Help command**
+
+**MSS**
+
+1.  Student Care Supervisor requests for information on available commands.
+2.  CareContacts displays information on available commands, parameters and formats.
+
+
+
+    Use case ends.
 
 *{More to be added}*
 
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+2.  Data should be stored locally in a human editable text file.
+3.  Data should persist across different sessions of the application.
+4.  Software should work without requiring an installer.
+5.  Should be able to hold up to 200 students without any noticeable decline in performance for typical usage. 
+6.  Should be usable by a user who has never used the software before. 
+7.  A user with above average typing speed for regular English text should be able to accomplish most of the tasks faster using commands than using the mouse. 
+8.  Should be able to work with or without internet access. 
+9.  Should be backward compatible with data produced by earlier versions of the software.
+
 
 *{More to be added}*
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Invalid command format**: A command format that does not adhere to the format prescribed by the UI
+* **Student care**: An afterschool program for primary-school aged children
+* **Student care supervisor**: A student care supervisor that manages the daily operations and staff of the student care center
+* **Student**: A child enrolled in the student care center
 
 --------------------------------------------------------------------------------------------------------------------
 
