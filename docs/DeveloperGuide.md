@@ -310,7 +310,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | user                                       | associate a teacher with classroom(s)                      | grant them access to multiple student data at once                       |
 | `*`      | user                                       | filter by classroom or year                                | show only relevant students in the list                                  |
 | `*`      | user                                       | summarize the number of each dietary restrictions          | plan meals easier                                                        |
-| `*`      | user                                       | Get notifications at dismissal times                       | dismiss students at the correct timings                                  |
+| `*`      | user                                       | get notifications at dismissal times                       | dismiss students at the correct timings                                  |
 
 *{More to be added}*
 
