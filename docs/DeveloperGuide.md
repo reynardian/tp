@@ -272,7 +272,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Product scope
 
-**Target user profile**: Student Care Supervisor
+**Target user profile**: Student care supervisor
 
 * needs to manage a significant number of contacts
 * can type fast
@@ -315,13 +315,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `CareContacts` and the **Actor** is the `Student Care Supervisor`, unless specified otherwise)
+(For all use cases below, the **System** is the `CareContacts` and the **Actor** is the `Student care supervisor`, unless specified otherwise)
 
 **Use case: UC1 - Add a student**
 
 **MSS**
 
-1.  Student Care Supervisor requests to add a student with their information.
+1.  Student care supervisor requests to add a student with their information.
 2.  CareContacts stores the student and the information related to the student.
 3.  CareContacts displays a success message confirming the student has been stored.
 
@@ -346,7 +346,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  Student Care Supervisor requests to delete a student's information.
+1.  Student care supervisor requests to delete a student's information.
 2.  CareContacts deletes the student.
 3.  CareContacts displays a deletion success message.
 
@@ -361,11 +361,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
+* 1b. The specified student does not exist.
+
+    * 1b1. CareContacts displays an error message.
+
+      Use case ends.
+
 **Use case: UC3 - List all student information**
 
 **MSS**
 
-1.  Student Care Supervisor requests for all the stored students to be listed.
+1.  Student care supervisor requests for all the stored students to be listed.
 2.  CareContacts displays the list of all students added and all the information associated with each student.
 
 
@@ -375,7 +381,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  Student Care Supervisor requests for information on the available commands.
+1.  Student care supervisor requests for information on the available commands.
 2.  CareContacts displays information on the available commands, parameters and formats.
 
 
@@ -402,8 +408,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Student Care Center**: An afterschool program for primary-school aged children
-* **Student Care Supervisor**: A staff member responsible for managing the daily operations and staff of the student care center
+* **Student care center**: An afterschool program for primary-school aged children
+* **Student care supervisor**: A staff member responsible for managing the daily operations and staff of the student care center
 * **Student**: A child enrolled in the student care center whose information is stored in CareContacts.
 
 --------------------------------------------------------------------------------------------------------------------
