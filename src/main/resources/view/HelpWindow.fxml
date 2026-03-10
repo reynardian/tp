@@ -26,14 +26,17 @@
         <children>
           <ScrollPane fitToWidth="true">
             <content>
-              <VBox spacing="12" fx:id="helpContainer">
-
+              <VBox spacing="6" fx:id="helpContainer">
+                <padding>
+                  <Insets top="10" right="15" bottom="10" left="15"/>
+                </padding>
                 <Label text="Student Care Address Book" styleClass="help-title"/>
+
+                <Separator/>
 
                 <Label text="Add Student" styleClass="help-section"/>
                 <Label text="Command:" styleClass="help-subtitle"/>
                 <Label text="add n/[student-name] [optional fields]" styleClass="help-command"/>
-
                 <Label text="Examples:" styleClass="help-subtitle"/>
                 <Label text="add n/James"/>
                 <Label text="add n/James Lim a/5"/>
@@ -44,7 +47,6 @@
                 <Label text="Delete Student" styleClass="help-section"/>
                 <Label text="Command:" styleClass="help-subtitle"/>
                 <Label text="delete [INDEX]" styleClass="help-command"/>
-
                 <Label text="Examples:" styleClass="help-subtitle"/>
                 <Label text="delete 1"/>
                 <Label text="delete 3"/>
