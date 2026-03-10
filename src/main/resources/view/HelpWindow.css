@@ -17,7 +17,6 @@
 #helpMessageContainer {
     -fx-background-color: derive(#1d1d1d, 20%);
     -fx-max-height: 500px;
-    -fx-max-width: 500px;
 }
 
 .help-title {
@@ -42,5 +41,8 @@
 
 .example-box {
     -fx-background-color: #D3D3D3;
+<<<<<<< HEAD
     -fx-padding: 10px;
+=======
+>>>>>>> 26f3129c035586942748d3dcc1ef1f38604ce4d1
 }
