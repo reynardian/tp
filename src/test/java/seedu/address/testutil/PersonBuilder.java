@@ -151,6 +151,11 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Initializes the {@code Person} object with the current configuration of this builder.
+     *
+     * @return A new instance of {@code Person}.
+     */
     public Person build() {
         return new Person(name, phone, email, address, tags, parentName, parentPhone, parentEmail,
                 remark, dietaryRemark);
