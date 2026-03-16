@@ -48,6 +48,10 @@ public class PersonCard extends UiPart<Region> {
     private Label parentPhone;
     @FXML
     private Label parentEmail;
+    @FXML
+    private Label remark;
+    @FXML
+    private Label dietaryRemark;
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
@@ -57,15 +61,30 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        age.setText(person.getAge().value);
+        age.setText("Age: " + person.getAge().value);
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
+        phone.setText("Phone: " + person.getPhone().value);
+        address.setText("Address: " + person.getAddress().value);
+        email.setText("Email: " + person.getEmail().value);
+        if (person.getRemark().value.isEmpty()) {
+            remark.setVisible(false);
+            remark.setManaged(false);
+        } else {
+            remark.setText(person.getRemark().toString());
+        }
+        if (person.getDietaryRemark().value.isEmpty()) {
+            dietaryRemark.setVisible(false);
+            dietaryRemark.setManaged(false);
+        } else {
+            dietaryRemark.setText(person.getDietaryRemark().toString());
+        }
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        parentName.setText(person.getParentName().fullName);
-        parentPhone.setText(person.getParentPhone().value);
-        parentEmail.setText(person.getParentEmail().value);
+        parentName.setText("Parent Name: " + person.getParentName().fullName);
+        parentPhone.setText("Parent Phone: " + person.getParentPhone().value);
+        parentEmail.setText("Parent Email: " + person.getParentEmail().value);
     }
 }

@@ -8,7 +8,9 @@
     "tags": [ "friends" ],
     "parentName": "Parent Bee 1",
     "parentPhone": "98765432",
-    "parentEmail": "parent@gmail.com"
+    "parentEmail": "parent@gmail.com",
+    "remark" : "",
+    "dietaryRemark" : ""
   }, {
     "name": "Alice Pauline",
     "age": "11",
@@ -17,6 +19,8 @@
     "address": "4th street",
     "parentName": "Parent Bee 2",
     "parentPhone": "98765432",
-    "parentEmail": "parent@gmail.com"
+    "parentEmail": "parent@gmail.com",
+    "remark" : "",
+    "dietaryRemark" : ""
   } ]
 }

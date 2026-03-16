@@ -29,40 +29,29 @@ import seedu.address.model.person.Person;
 public class TypicalPersons {
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
-            .withAge("7").withPhone("94351253").withEmail("alice@example.com")
-            .withAddress("123, Jurong West Ave 6, #08-111")
-            .withParentName("Parent Bee").withParentPhone("98765432").withParentEmail("parent@gmail.com")
-            .withTags("friends").build();
+            .withAge("7")
+            .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
+            .withPhone("94351253").withRemark("She likes aardvarks.")
+            .withDietaryRemark("Fish").withTags("friends").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
-            .withAge("11").withPhone("98765432").withEmail("johnd@example.com")
-            .withAddress("311, Clementi Ave 2, #02-25")
-            .withParentName("Parent Bee").withParentPhone("98765432").withParentEmail("parent@gmail.com")
-            .withTags("owesMoney", "friends").build();
+            .withAge("11")
+            .withAddress("311, Clementi Ave 2, #02-25").withRemark("He can't take beer!")
+            .withEmail("johnd@example.com").withPhone("98765432")
+            .withDietaryRemark("Shrimp").withTags("owesMoney", "friends").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz")
-            .withAge("13").withPhone("95352563").withEmail("heinz@example.com")
-            .withAddress("wall street")
-            .withParentName("Parent Bee").withParentPhone("98765432").withParentEmail("parent@gmail.com")
-            .build();
+            .withAge("13").withPhone("95352563")
+            .withEmail("heinz@example.com").withAddress("wall street").build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier")
-            .withAge("9").withPhone("87652533").withEmail("cornelia@example.com")
-            .withAddress("10th street")
-            .withParentName("Parent Bee").withParentPhone("98765432").withParentEmail("parent@gmail.com")
-            .withTags("friends").build();
-    public static final Person ELLE = new PersonBuilder().withName("Elle Meyer")
-            .withAge("8").withPhone("9482224").withEmail("werner@example.com")
-            .withAddress("michegan ave")
-            .withParentName("Parent Bee").withParentPhone("98765432").withParentEmail("parent@gmail.com")
-            .build();
+            .withAge("9").withPhone("87652533")
+            .withEmail("cornelia@example.com").withAddress("10th street").withTags("friends").build();
+    public static final Person ELLE = new PersonBuilder()
+            .withAge("8").withName("Elle Meyer").withPhone("9482224")
+            .withEmail("werner@example.com").withAddress("michegan ave").build();
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz")
-            .withAge("7").withPhone("9482427").withEmail("lydia@example.com")
-            .withAddress("little tokyo")
-            .withParentName("Parent Bee").withParentPhone("98765432").withParentEmail("parent@gmail.com")
-            .build();
-    public static final Person GEORGE = new PersonBuilder().withName("George Best")
-            .withAge("12").withPhone("9482442").withEmail("anna@example.com")
-            .withAddress("4th street")
-            .withParentName("Parent Bee").withParentPhone("98765432").withParentEmail("parent@gmail.com")
-            .build();
+            .withAge("7").withPhone("9482427")
+            .withEmail("lydia@example.com").withAddress("little tokyo").build();
+    public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
+            .withEmail("anna@example.com").withAddress("4th street").build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier")

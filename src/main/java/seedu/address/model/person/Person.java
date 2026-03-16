@@ -8,6 +8,9 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.person.Age;
+import seedu.address.model.person.remarks.DietaryRemark;
+import seedu.address.model.person.remarks.Remark;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -24,6 +27,8 @@ public class Person {
 
     // Data fields
     private final Address address;
+    private final Remark remark;
+    private final DietaryRemark dietaryRemark;
     private final Set<Tag> tags = new HashSet<>();
 
     // Parent fields
@@ -34,15 +39,16 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Age age,
-                  Phone phone, Email email, Address address, Set<Tag> tags,
-                  Name parentName, Phone parentPhone, Email parentEmail) {
-        requireAllNonNull(name, age, phone, email, address, tags, parentName, parentPhone, parentEmail);
+    public Person(Name name, Age age, Phone phone, Email email, Address address, Set<Tag> tags, Name parentName,
+                  Phone parentPhone, Email parentEmail, Remark remark, DietaryRemark dietaryRemark) {
+        requireAllNonNull(name, phone, email, address, tags, parentName, parentPhone, parentEmail);
         this.name = name;
         this.age = age;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.remark = remark;
+        this.dietaryRemark = dietaryRemark;
         this.tags.addAll(tags);
         this.parentName = parentName;
         this.parentPhone = parentPhone;
@@ -79,6 +85,14 @@ public class Person {
 
     public Email getParentEmail() {
         return parentEmail;
+    }
+
+    public Remark getRemark() {
+        return remark;
+    }
+
+    public DietaryRemark getDietaryRemark() {
+        return dietaryRemark;
     }
 
     /**
@@ -149,4 +163,5 @@ public class Person {
                 .add("parentEmail", parentEmail)
                 .toString();
     }
+
 }
