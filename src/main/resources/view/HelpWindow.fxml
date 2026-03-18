@@ -79,7 +79,7 @@
 
                 <Label fx:id="addRemarkSection" text="Add a remark on a student" styleClass="help-section"/>
                 <Label text="Command:" styleClass="help-subtitle"/>
-                <Label text="remark INDEX r/GENERAL_REMARK d/DIETARY_INFORMATION" styleClass="help-command"/>
+                <Label wrapText="true" text="remark INDEX r/GENERAL_REMARK d/DIETARY_INFORMATION c/CLASS_INFORMATION b/BEHAVIORAL_INFORMATION" styleClass="help-command"/>
                 <Label text="Examples:" styleClass="help-subtitle"/>
                 <VBox spacing="2" styleClass="example-box">
                   <padding>
@@ -88,6 +88,7 @@
                   <Label text="remark 1 r/enjoys sports"/>
                   <Label text="remark 1 d/allergic to shellfish"/>
                   <Label text="remark 1 r/enjoys sports d/allergic to shellfish"/>
+                  <Label wrapText="true" text="remark 1 r/enjoys sports d/allergic to shellfish c/1C b/very energetic"/>
                 </VBox>
 
                 <Separator/>
