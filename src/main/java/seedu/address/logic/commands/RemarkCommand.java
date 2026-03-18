@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DIETARY_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -33,19 +34,22 @@ public class RemarkCommand extends Command {
 
     public static final String MESSAGE_ADD_REMARK_SUCCESS = "Added remark to Person: %1$s";
     public static final String MESSAGE_DELETE_REMARK_SUCCESS = "Removed remark from Person: %1$s";
+    public static final String MESSAGE_ADD_DIETARY_REMARK_SUCCESS = "Added dietary information to Person: %1$s";
+    public static final String MESSAGE_DELETE_DIETARY_REMARK_SUCCESS = "Removed dietary information from Person: %1$s";
+
 
     private final Index index;
-    private final Remark remark;
+    private final List<Remark> remarks;
 
     /**
      * @param index of the person in the filtered person list to edit the remark
-     * @param remark of the person to be updated to
+     * @param remarks of the person to be updated to
      */
-    public RemarkCommand(Index index, Remark remark) {
-        requireAllNonNull(index, remark);
+    public RemarkCommand(Index index, List<Remark> remarks) {
+        requireAllNonNull(index, remarks);
 
         this.index = index;
-        this.remark = remark;
+        this.remarks = remarks;
     }
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -59,10 +63,12 @@ public class RemarkCommand extends Command {
         Remark updatedRemark = personToEdit.getRemark();
         DietaryRemark updatedDietaryRemark = personToEdit.getDietaryRemark();
 
-        if (this.remark instanceof DietaryRemark) {
-            updatedDietaryRemark = (DietaryRemark) this.remark;
-        } else {
-            updatedRemark = this.remark;
+        for (Remark r : remarks) {
+            if (r instanceof DietaryRemark) {
+                updatedDietaryRemark = (DietaryRemark) r;
+            } else {
+                updatedRemark = r;
+            }
         }
 
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getAge(),
@@ -77,11 +83,25 @@ public class RemarkCommand extends Command {
     }
 
     /**
-     * Generates a command execution success message based on whether the remark is added to or removed from
+     * Generates a command execution success message based on whether the remarks are added to or removed from
      * {@code personToEdit}.
      */
     private String generateSuccessMessage(Person personToEdit) {
-        String message = !remark.value.isEmpty() ? MESSAGE_ADD_REMARK_SUCCESS : MESSAGE_DELETE_REMARK_SUCCESS;
+        List<String> messages = new ArrayList<>();
+
+        for (Remark remark : remarks) {
+            if (remark instanceof DietaryRemark) {
+                messages.add(remark.value.isEmpty()
+                        ? MESSAGE_DELETE_DIETARY_REMARK_SUCCESS
+                        : MESSAGE_ADD_DIETARY_REMARK_SUCCESS);
+            } else {
+                messages.add(remark.value.isEmpty()
+                        ? MESSAGE_DELETE_REMARK_SUCCESS
+                        : MESSAGE_ADD_REMARK_SUCCESS);
+            }
+        }
+
+        String message = String.join("\n", messages);
         return String.format(message, Messages.format(personToEdit));
     }
 
@@ -100,6 +120,6 @@ public class RemarkCommand extends Command {
         // state check
         RemarkCommand e = (RemarkCommand) other;
         return index.equals(e.index)
-                && remark.equals(e.remark);
+                && remarks.equals(e.remarks);
     }
 }
