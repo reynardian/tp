@@ -107,13 +107,13 @@
 
                 <Separator/>
 
-                <Label text="List all students" styleClass="help-section"/>
+                <Label fx:id="listSection" text="List all students" styleClass="help-section"/>
                 <Label text="Command:" styleClass="help-subtitle"/>
                 <Label text="list" styleClass="help-command"/>
 
                 <Separator/>
 
-                <Label fx:id="findStudent" text="Find by student name" styleClass="help-section"/>
+                <Label fx:id="findStudentSection" text="Find by student name" styleClass="help-section"/>
                 <Label text="Command:" styleClass="help-subtitle"/>
                 <Label text="find n/STUDENT_NAME" styleClass="help-command"/>
                 <Label text="Examples:" styleClass="help-subtitle"/>
@@ -127,7 +127,7 @@
 
                 <Separator/>
 
-                <Label fx:id="findParent" text="Find by parent name" styleClass="help-section"/>
+                <Label fx:id="findParentSection" text="Find by parent name" styleClass="help-section"/>
                 <Label text="Command:" styleClass="help-subtitle"/>
                 <Label text="find pn/PARENT_NAME" styleClass="help-command"/>
                 <VBox spacing="2" styleClass="example-box">
@@ -137,12 +137,6 @@
                   <Label text="find n/John"/>
                   <Label text="find n/Jonathan Tay Jun Le"/>
                 </VBox>
-
-                <Separator/>
-
-                <Label text="Help" styleClass="help-section"/>
-                <Label text="Command:" styleClass="help-subtitle"/>
-                <Label text="help" styleClass="help-command"/>
 
               </VBox>
             </content>
