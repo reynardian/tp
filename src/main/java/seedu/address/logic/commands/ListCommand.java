@@ -19,7 +19,7 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 
-    public static final String MESSAGE_SUCCESS = "Listed all persons";
+    public static final String MESSAGE_SUCCESS = "Listed all persons, sorted by: ";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists your contacts, and optionally sorts. "
             + "Use at most one of the following parameters: "
@@ -33,13 +33,29 @@ public class ListCommand extends Command {
             + COMMAND_WORD;
 
     public enum SortParameter {
-        NAME, AGE, PARENT_NAME, PARENT_PHONE, PARENT_EMAIL
+        NAME("name"),
+        AGE("age"),
+        PARENT_NAME("parent name"),
+        PARENT_PHONE("parent phone"),
+        PARENT_EMAIL("parent email"),
+        DEFAULT_ORDER("default order");
+
+        private final String parameterName;
+
+        SortParameter(String parameterName) {
+            this.parameterName = parameterName;
+        }
+
+        @Override
+        public String toString() {
+            return this.parameterName;
+        }
     }
 
     private final SortParameter sortParameter;
 
     public ListCommand() {
-        this.sortParameter = null;
+        this.sortParameter = SortParameter.DEFAULT_ORDER;
     }
 
     public ListCommand(SortParameter sortParameter) {
@@ -49,7 +65,29 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        assert sortParameter != null : "Sort parameter should never be null, it should use the default order at least";
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(MESSAGE_SUCCESS);
+
+        switch (sortParameter) {
+        case NAME:
+            model.sortFilteredPersonListByName();
+            break;
+        case AGE:
+            model.sortFilteredPersonListByAge();
+            break;
+        case PARENT_NAME:
+            model.sortFilteredPersonListByParentName();
+            break;
+        case PARENT_PHONE:
+            model.sortFilteredPersonListByParentPhone();
+            break;
+        case PARENT_EMAIL:
+            model.sortFilteredPersonListByParentEmail();
+            break;
+        default:
+            model.clearFilteredPersonListSorting();
+        }
+
+        return new CommandResult(MESSAGE_SUCCESS + sortParameter);
     }
 }

@@ -25,8 +25,7 @@ public class ListCommandParser implements Parser<ListCommand> {
         String trimmedArgs = args.trim();
 
         if (trimmedArgs.isEmpty()) {
-            // No sort parameter provided, display in default order
-            return new ListCommand();
+            return new ListCommand(SortParameter.DEFAULT_ORDER);
         } else if (trimmedArgs.equals(PREFIX_NAME.toString())) {
             return new ListCommand(SortParameter.NAME);
         } else if (trimmedArgs.equals(PREFIX_AGE.toString())) {
