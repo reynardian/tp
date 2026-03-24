@@ -1,9 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
@@ -58,6 +56,12 @@ public interface Model {
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     boolean hasPerson(Person person);
+
+    /**
+     * Returns true if a person with the same normalized name {@code person} exists in the address book.
+     * The intention is to warn the user of possible duplicates.
+     */
+    boolean hasSimilarPerson(Person person);
 
     /**
      * Deletes the given person.
