@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DIETARY_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENT_NAME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -22,7 +24,8 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "     ", String.format(
+                MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -45,6 +48,15 @@ public class FindCommandParserTest {
                 new FindCommand(new NameContainsKeywordsPredicate(parentMap));
 
         assertParseSuccess(parser, " pn/Tan pn/Smith", expectedParentCommand);
+
+        // Multi-prefix search (Age and Dietary Remark) ---
+        Map<Prefix, List<String>> multiMap = new HashMap<>();
+        multiMap.put(PREFIX_AGE, Arrays.asList("12"));
+        multiMap.put(PREFIX_DIETARY_REMARK, Arrays.asList("Vegan"));
+        FindCommand expectedMultiCommand =
+                new FindCommand(new NameContainsKeywordsPredicate(multiMap));
+
+        assertParseSuccess(parser, " a/12 d/Vegan", expectedMultiCommand);
     }
 
     @Test
@@ -57,8 +69,8 @@ public class FindCommandParserTest {
         assertParseFailure(parser, " pn/", String.format(
                 MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
 
-        // One valid, one empty
-        assertParseFailure(parser, " n/Alice pn/", String.format(
+        // One valid, one empty (Dietary remark empty)
+        assertParseFailure(parser, " n/Alice d/", String.format(
                 MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
 }

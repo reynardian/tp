@@ -3,8 +3,11 @@ package seedu.address.model.person;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DIETARY_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -55,34 +58,39 @@ public class NameContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_nameContainsKeywords_returnsTrue() {
-        // One keyword (using legacy constructor wrapper)
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
+    public void test_attributeContainsKeywords_returnsTrue() {
+        // --- Student Name (Standard) ---
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(
+                Map.of(PREFIX_NAME, List.of("Alice")));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 
-        // Multiple keywords (explicit Map)
-        Map<Prefix, List<String>> keywordsMap = new HashMap<>();
-        keywordsMap.put(PREFIX_NAME, Arrays.asList("Alice", "Bob"));
-        predicate = new NameContainsKeywordsPredicate(keywordsMap);
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
+        // --- Age ---
+        predicate = new NameContainsKeywordsPredicate(Map.of(PREFIX_AGE, List.of("12")));
+        assertTrue(predicate.test(new PersonBuilder().withAge("12").build()));
 
-        // Parent Name match
-        keywordsMap = new HashMap<>();
-        keywordsMap.put(PREFIX_PARENT_NAME, Collections.singletonList("Tan"));
-        predicate = new NameContainsKeywordsPredicate(keywordsMap);
-        // Note: Ensure your PersonBuilder has the .withParentName() method
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice").withParentName("Tan Ah Teck").build()));
+        // --- Dietary Remark ---
+        predicate = new NameContainsKeywordsPredicate(Map.of(PREFIX_DIETARY_REMARK, List.of("Vegan")));
+        assertTrue(predicate.test(new PersonBuilder().withDietaryRemark("Vegan").build()));
+
+        // --- Tags ---
+        predicate = new NameContainsKeywordsPredicate(Map.of(PREFIX_TAG, List.of("friends")));
+        assertTrue(predicate.test(new PersonBuilder().withTags("friends", "owesMoney").build()));
+
+        // --- Parent Name ---
+        predicate = new NameContainsKeywordsPredicate(Map.of(PREFIX_PARENT_NAME, List.of("Tan")));
+        assertTrue(predicate.test(new PersonBuilder().withParentName("Tan Ah Teck").build()));
     }
 
     @Test
-    public void test_nameDoesNotContainKeywords_returnsFalse() {
-        // Zero keywords (Legacy constructor)
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new PersonBuilder().withName("Alice").build()));
+    public void test_attributeDoesNotContainKeywords_returnsFalse() {
+        // Keyword matches address, but prefix is n/ (Name)
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(
+                Map.of(PREFIX_NAME, List.of("Main", "Street")));
+        assertFalse(predicate.test(new PersonBuilder().withName("Alice").withAddress("Main Street").build()));
 
-        // Non-matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
-        assertFalse(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
+        // Non-matching keyword for Age
+        predicate = new NameContainsKeywordsPredicate(Map.of(PREFIX_AGE, List.of("15")));
+        assertFalse(predicate.test(new PersonBuilder().withAge("12").build()));
     }
 
     @Test
@@ -92,8 +100,6 @@ public class NameContainsKeywordsPredicateTest {
         keywordsMap.put(PREFIX_PARENT_NAME, List.of("keyword2"));
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(keywordsMap);
 
-        // Map.toString() order can vary in some Java versions,
-        // but ToStringBuilder handles the formatting for us.
         String expected = NameContainsKeywordsPredicate.class.getCanonicalName() + "{keywordsMap=" + keywordsMap + "}";
         assertEquals(expected, predicate.toString());
     }
