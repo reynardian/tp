@@ -50,9 +50,9 @@ public class Messages {
     }
 
     /**
-     * Formats a list of persons for display to the user
-     * @param persons
-     * @return
+     * Formats a list of persons into a newline-separated string.
+     * @param persons list of persons to format
+     * @return formatted string for display
      */
     public static String formatPersonList(List<Person> persons) {
         return persons.stream()
