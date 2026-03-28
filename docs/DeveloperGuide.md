@@ -255,6 +255,7 @@ _{more aspects and alternatives to be added}_
 
 _{Explain here how the data archiving feature will be implemented}_
 
+<puml src="diagrams/DataArchivingState.puml" width="280" />
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -333,7 +334,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 1a. CareContacts detects an invalid command format.
 
     * 1a1. CareContacts displays an error message.
-  
+
       Use case ends.
 
 * 1b. CareContacts detects a duplicate student name.
@@ -396,10 +397,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2.  Data should be stored locally in a human editable text file.
 3.  Data should persist across different sessions of the application.
 4.  Software should work without requiring an installer.
-5.  Should be able to hold up to 200 students without any noticeable decline in performance for typical usage. 
-6.  Should be usable by a user who has never used the software before. 
-7.  A user with above average typing speed for regular English text should be able to accomplish most of the tasks faster using commands than using the mouse. 
-8.  Should be able to work with or without internet access. 
+5.  Should be able to hold up to 200 students without any noticeable decline in performance for typical usage.
+6.  Should be usable by a user who has never used the software before.
+7.  A user with above average typing speed for regular English text should be able to accomplish most of the tasks faster using commands than using the mouse.
+8.  Should be able to work with or without internet access.
 9.  Should be backward compatible with data produced by earlier versions of the software.
 
 
