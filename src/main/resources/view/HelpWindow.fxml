@@ -61,14 +61,24 @@
 
                 <Label fx:id="deleteSection" text="Delete a student" styleClass="help-section"/>
                 <Label text="Command:" styleClass="help-subtitle"/>
-                <Label text="delete INDEX" styleClass="help-command"/>
+                <Label text="delete INDEX [INDEX] [START-END]" styleClass="help-command"/>
+
+                <Label text="Description:" styleClass="help-subtitle"/>
+                <Label wrapText="true" text="Deletes one or more students using their index numbers."/>
+
+                <Label text="Notes:" styleClass="help-subtitle"/>
+                <Label text="- Supports bulk deletion by providing multiple indices and/or ranges." wrapText="true"/>
+                <Label text="- Ranges are inclusive (e.g. 3-5 deletes indices 3, 4, and 5)." wrapText="true"/>
+                <Label text="- You can combine indices and ranges (e.g. 1 3 5-7)." wrapText="true"/>
+
                 <Label text="Examples:" styleClass="help-subtitle"/>
                 <VBox spacing="2" styleClass="example-box">
                   <padding>
                     <Insets top="15" right="15" bottom="15" left="15"/>
                   </padding>
                   <Label text="1. delete 1"/>
-                  <Label text="2. delete 3"/>
+                  <Label text="2. delete 3-7"/>
+                  <Label text="2. delete 1 3 5 7-9 10-14"/>
                 </VBox>
 
                 <Separator/>
