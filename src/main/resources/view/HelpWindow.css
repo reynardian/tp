@@ -48,7 +48,6 @@
 .example-box {
     -fx-background-color: #d7e6e4;;
     -fx-font-family: "Consolas";
-    -fx-border-radius: 4;
 }
 
 .nav-panel {
