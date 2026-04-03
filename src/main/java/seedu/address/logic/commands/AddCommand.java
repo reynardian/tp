@@ -67,8 +67,7 @@ public class AddCommand extends Command {
         String feedbackToUser = MESSAGE_SUCCESS;
 
         if (model.hasSimilarPerson(toAdd)) {
-            model.addPerson(toAdd);
-            model.updateFilteredPersonList(person -> person.hasSimilarName(toAdd));
+            model.addSimilarPerson(toAdd);
             feedbackToUser = MESSAGE_SIMILAR_PERSON + MESSAGE_SUCCESS;
         } else {
             model.addPerson(toAdd);

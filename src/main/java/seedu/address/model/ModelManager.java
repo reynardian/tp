@@ -115,6 +115,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addSimilarPerson(Person personToAdd) {
+        addressBook.addPerson(personToAdd);
+        updateFilteredPersonList(person -> person.hasSimilarName(personToAdd));
+    }
+
+    @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
