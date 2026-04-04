@@ -103,7 +103,7 @@ A name is considered a match after normalization if the name is the same after:
 * Differences in capitalization are ignored
 * Extra spaces are removed
 
-For example, `John Doe` and `john doe` are treated as the same name.
+For example, `John Doe` and `john   doe  ` are treated as the same name.
 
 Limitations:
 
