@@ -48,6 +48,10 @@ public class RemarkCommand extends Command {
     public static final String MESSAGE_ADD_BEHAVIOR_REMARK_SUCCESS = "Added behavior information to Student: %1$s";
     public static final String MESSAGE_DELETE_BEHAVIOR_REMARK_SUCCESS =
             "Removed behavior information from Student: %1$s";
+    public static final String MESSAGE_REMARK_ALREADY_EMPTY = "Remark is already empty.";
+    public static final String MESSAGE_DIETARY_REMARK_ALREADY_EMPTY = "Dietary remark is already empty.";
+    public static final String MESSAGE_CLASS_REMARK_ALREADY_EMPTY = "Class remark is already empty.";
+    public static final String MESSAGE_BEHAVIOR_REMARK_ALREADY_EMPTY = "Behavior remark is already empty.";
 
 
     private final Index index;
@@ -78,6 +82,7 @@ public class RemarkCommand extends Command {
         BehaviorRemark updatedBehaviorRemark = personToEdit.getBehaviorRemark();
 
         for (Remark r : remarks) {
+            validateDeleteTargetNotEmpty(r, personToEdit);
             if (r instanceof DietaryRemark) {
                 updatedDietaryRemark = (DietaryRemark) r;
             } else if (r instanceof ClassRemark) {
@@ -129,6 +134,31 @@ public class RemarkCommand extends Command {
 
         String message = String.join("\n", messages);
         return String.format(message, Messages.format(personToEdit));
+    }
+
+    /**
+     * Throws a {@code CommandException} if the command attempts to delete an already empty remark field.
+     */
+    private void validateDeleteTargetNotEmpty(Remark remarkToApply, Person personToEdit) throws CommandException {
+        if (!remarkToApply.value.isEmpty()) {
+            return;
+        }
+
+        if (remarkToApply instanceof DietaryRemark && personToEdit.getDietaryRemark().value.isEmpty()) {
+            throw new CommandException(MESSAGE_DIETARY_REMARK_ALREADY_EMPTY);
+        }
+        if (remarkToApply instanceof ClassRemark && personToEdit.getClassRemark().value.isEmpty()) {
+            throw new CommandException(MESSAGE_CLASS_REMARK_ALREADY_EMPTY);
+        }
+        if (remarkToApply instanceof BehaviorRemark && personToEdit.getBehaviorRemark().value.isEmpty()) {
+            throw new CommandException(MESSAGE_BEHAVIOR_REMARK_ALREADY_EMPTY);
+        }
+        if (!(remarkToApply instanceof DietaryRemark)
+                && !(remarkToApply instanceof ClassRemark)
+                && !(remarkToApply instanceof BehaviorRemark)
+                && personToEdit.getRemark().value.isEmpty()) {
+            throw new CommandException(MESSAGE_REMARK_ALREADY_EMPTY);
+        }
     }
 
     @Override

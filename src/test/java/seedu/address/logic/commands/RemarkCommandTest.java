@@ -140,7 +140,9 @@ public class RemarkCommandTest {
     @Test
     public void execute_deleteClassRemarkUnfilteredList_success() {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Person editedPerson = new PersonBuilder(firstPerson).withClassRemark("").build();
+        Person personWithClassRemark = new PersonBuilder(firstPerson).withClassRemark(CLASSREMARK_STUB).build();
+        model.setPerson(firstPerson, personWithClassRemark);
+        Person editedPerson = new PersonBuilder(personWithClassRemark).withClassRemark("").build();
 
         RemarkCommand remarkCommand = new RemarkCommand(INDEX_FIRST_PERSON,
                 new ArrayList<>(Arrays.asList(
@@ -150,7 +152,7 @@ public class RemarkCommandTest {
                 Messages.format(editedPerson));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(firstPerson, editedPerson);
+        expectedModel.setPerson(personWithClassRemark, editedPerson);
 
         assertCommandSuccess(remarkCommand, model, expectedMessage, expectedModel);
     }
@@ -176,7 +178,10 @@ public class RemarkCommandTest {
     @Test
     public void execute_deleteBehaviorRemarkUnfilteredList_success() {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Person editedPerson = new PersonBuilder(firstPerson).withBehaviorRemark("").build();
+        Person personWithBehaviorRemark = new PersonBuilder(firstPerson)
+                .withBehaviorRemark(BEHAVIORREMARK_STUB).build();
+        model.setPerson(firstPerson, personWithBehaviorRemark);
+        Person editedPerson = new PersonBuilder(personWithBehaviorRemark).withBehaviorRemark("").build();
 
         RemarkCommand remarkCommand = new RemarkCommand(INDEX_FIRST_PERSON,
                 new ArrayList<>(Arrays.asList(
@@ -186,9 +191,21 @@ public class RemarkCommandTest {
                 Messages.format(editedPerson));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(firstPerson, editedPerson);
+        expectedModel.setPerson(personWithBehaviorRemark, editedPerson);
 
         assertCommandSuccess(remarkCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_deleteRemarkWhenEmpty_failure() {
+        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person personWithEmptyRemark = new PersonBuilder(firstPerson).withRemark("").build();
+        model.setPerson(firstPerson, personWithEmptyRemark);
+
+        RemarkCommand remarkCommand = new RemarkCommand(INDEX_FIRST_PERSON,
+                        new ArrayList<>(Arrays.asList(new Remark(""))));
+
+        assertCommandFailure(remarkCommand, model, RemarkCommand.MESSAGE_REMARK_ALREADY_EMPTY);
     }
 
     @Test
