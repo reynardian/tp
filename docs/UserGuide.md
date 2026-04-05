@@ -295,9 +295,3 @@ Action     | Format, Examples
 **Remark** | `remark INDEX r/[REMARK] d/[DIETARY REMARK] b/[BEHAVIOR REMARK] c/[CLASS]` <br> e.g., `remark 3 c/4A d/Allergic to seafood`
 **Import** | `import FILE_PATH`<br> e.g., `import data/contacts.csv`
 **Clear**  | `clear`
-
-
-
-
-
-
