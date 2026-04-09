@@ -545,7 +545,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Student care center**: An afterschool program for primary-school aged children
 * **Student care supervisor**: A staff member responsible for managing the daily operations and staff of the student care center
-* **Student**: A child enrolled in the student care center whose information is stored in CareContacts.
+* **Student**: A child enrolled in the student care center whose information is stored in CareContacts
 
 --------------------------------------------------------------------------------------------------------------------
 
