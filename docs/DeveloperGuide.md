@@ -585,6 +585,8 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `add n/John Doe a/12 ad/311, Clementi Ave 2, #02-25 pn/Jane Doe pc/87516234 pe/janed@example.com t/friends t/basketball`
       Expected: The student is added to the list. Details of the added student are shown in the status message. Timestamp in the status bar is updated.
 
+1. Adding a student whose normalized name already exists in CareContacts
+
    1. Prerequisites: A student named "Alex Yeoh" exists in CareContacts.
    1. Test case: `add n/alex  yeoh a/11 ad/289, Jurong West St 41, #03-12 pn/John Yeoh pc/91234567 pe/john.yeoh@example.com t/choir`
       Expected: A message warning the user of a possible duplicate is shown.
@@ -598,6 +600,8 @@ testers are expected to do more *exploratory* testing.
     1. Test case: `edit 1 pc/12345678`
        Expected: The student at index 1's details are updated in the list to show the new parent contact details.
        Details of the edited student are shown in the status message. Timestamp in the status bar is updated.
+
+1. Editing a student whose normalized name already exists in CareContacts
 
     1. Prerequisites: A student named "Alex Yeoh" exists in CareContacts. Another student exists in the CareContacts at index 1.
 
