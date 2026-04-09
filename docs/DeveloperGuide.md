@@ -314,7 +314,47 @@ Error handling:
 
 ### \[Proposed\] Data archiving
 
-_{Explain here how the data archiving feature will be implemented}_
+The data archiving feature allows users to move inactive or outdated students out of the main list into an archive, while still allowing them to be restored later if needed.
+
+#### Implementation Overview
+
+Data archiving is implemented by extending the `Model` to maintain two separate collections:
+- an active student list
+- an archived student list
+
+Each student exists in exactly one of the following states:
+- **Active**: visible in the main list and fully accessible
+- **Archived**: hidden from the main list but retained in the system
+- **Deleted**: permanently removed from the system
+
+The transitions between these states are shown in the diagram below.
+
+#### Command Flow
+
+- `archive INDEX`  
+  Moves a student from the active list to the archived list. The student is no longer shown in the main list.
+
+- `restore INDEX`  
+  Moves a student from the archived list back to the active list.
+
+- `delete INDEX`  
+  Removes a student permanently from the system, regardless of whether they are active or archived.
+
+These operations are handled by the `Logic` component, which parses user input and invokes the appropriate updates in the `Model`.
+
+#### Storage
+
+The `Storage` component is extended to persist both active and archived students. This can be implemented by:
+- storing both lists in a single JSON file under separate fields, or
+- using a separate JSON file for archived students
+
+This ensures that archived data is preserved across sessions.
+
+#### Design Considerations
+
+- **Clear state separation**: Distinguishing between active, archived, and deleted states reduces ambiguity and prevents unintended interactions with existing features.
+- **Reversibility**: Archiving is designed to be reversible via the `restore` command, unlike deletion which is permanent.
+- **Minimal disruption**: Existing features continue to operate only on active students, avoiding major changes to current logic.
 
 <puml src="diagrams/DataArchivingState.puml" width="280" />
 
