@@ -314,7 +314,47 @@ Error handling:
 
 ### \[Proposed\] Data archiving
 
-_{Explain here how the data archiving feature will be implemented}_
+The data archiving feature allows users to move inactive or outdated students out of the main list into an archive, while still allowing them to be restored later if needed.
+
+#### Implementation Overview
+
+Data archiving is implemented by extending the `Model` to maintain two separate collections:
+- an active student list
+- an archived student list
+
+Each student exists in exactly one of the following states:
+- **Active**: visible in the main list and fully accessible
+- **Archived**: hidden from the main list but retained in the system
+- **Deleted**: permanently removed from the system
+
+The transitions between these states are shown in the diagram below.
+
+#### Command Flow
+
+- `archive INDEX`  
+  Moves a student from the active list to the archived list. The student is no longer shown in the main list.
+
+- `restore INDEX`  
+  Moves a student from the archived list back to the active list.
+
+- `delete INDEX`  
+  Removes a student permanently from the system, regardless of whether they are active or archived.
+
+These operations are handled by the `Logic` component, which parses user input and invokes the appropriate updates in the `Model`.
+
+#### Storage
+
+The `Storage` component is extended to persist both active and archived students. This can be implemented by:
+- storing both lists in a single JSON file under separate fields, or
+- using a separate JSON file for archived students
+
+This ensures that archived data is preserved across sessions.
+
+#### Design Considerations
+
+- **Clear state separation**: Distinguishing between active, archived, and deleted states reduces ambiguity and prevents unintended interactions with existing features.
+- **Reversibility**: Archiving is designed to be reversible via the `restore` command, unlike deletion which is permanent.
+- **Minimal disruption**: Existing features continue to operate only on active students, avoiding major changes to current logic.
 
 <puml src="diagrams/DataArchivingState.puml" width="280" />
 
@@ -448,7 +488,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2.  CareContacts displays information on the available commands, parameters and formats.
 
 
-
     Use case ends.
 
 **Use case: UC5 - Import students from a CSV file**
@@ -537,24 +576,58 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
-### Deleting a person
+### Adding a student
 
-1. Deleting a person while all persons are being shown
+1. Adding a student while students are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   1. Prerequisites: No students with the same normalized name (case-insensitive, ignoring extra spaces) as "John Doe" exist in CareContacts.
+   1. Test case: `add n/John Doe a/12 ad/311, Clementi Ave 2, #02-25 pn/Jane Doe pc/87516234 pe/janed@example.com t/friends t/basketball`
+      Expected: The student is added to the list. Details of the added student are shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   1. Prerequisites: A student named "Alex Yeoh" exists in CareContacts.
+   1. Test case: `add n/alex  yeoh a/11 ad/289, Jurong West St 41, #03-12 pn/John Yeoh pc/91234567 pe/john.yeoh@example.com t/choir`
+      Expected: A message warning the user of a possible duplicate is shown.
+      Students with the same normalized name (case-insensitive, ignoring extra spaces), including the newly added student, are listed.
+      The student is still added to CareContacts. Details of the added student are shown in the status message. Timestamp in the status bar is updated.
+
+### Editing a student's details
+
+1. Editing a student while students are being shown
+
+    1. Test case: `edit 1 pc/12345678`
+       Expected: The student at index 1's details are updated in the list to show the new parent contact details.
+       Details of the edited student are shown in the status message. Timestamp in the status bar is updated.
+
+    1. Prerequisites: A student named "Alex Yeoh" exists in CareContacts. Another student exists in the CareContacts at index 1.
+
+    1. Test case: `edit 1 n/alex      yeoh`
+       Expected: A message warning the user of a possible duplicate is shown.
+       Students with the same normalized name (case-insensitive, ignoring extra spaces), including the newly added student, are listed.
+       The student name is still edited to CareContacts. Details of the edited student are shown in the status message. Timestamp in the status bar is updated.
+
+      
+### Deleting a student
+
+1. Deleting a student while all students are being shown
+
+   1. Prerequisites: List all students using the `list` command. Multiple persons in the list.
+
+   1. Test case: `delete 1<br>
+      Expected: First student is deleted from the list. Details of the deleted student are shown in the status message. Timestamp in the status bar is updated.
+
+   1. Test case: `delete 1 2 1 3`<br>
+      Expected: Duplicated indices are handled (no duplicate deletions). The first, second, and third unique contacts are deleted from the list. Details of the deleted students are shown in the status message. Timestamp in the status bar is updated.
+
+   1. Test case: `delete 1-3`<br>
+      Expected: The first to third student in the list (inclusive) are deleted. Details of the deleted students are shown in the status message. Timestamp in the status bar is updated.
 
    1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+      Expected: No student is deleted. Error details are shown in the status message. Status bar remains the same.
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
-
-### Finding a person
+### Finding a student
 
 1. Filtering by multiple attributes
 
@@ -569,7 +642,7 @@ testers are expected to do more *exploratory* testing.
     1. Test case: `find n/`<br>
     Expected: No search is performed. Error message for invalid command format is shown.
 
-### Listing contacts
+### Listing students
 
 1. Listing and sorting contacts in a specified order
 
