@@ -6,7 +6,9 @@
 
 # CareContacts User Guide
 
-CareContacts is a desktop student management application designed specifically for Student Care Supervisors. **It is optimized for a Command Line Interface** (CLI) and for fast typists.
+CareContacts is a desktop student management application designed for Student Care Supervisors who need quick access to student and parent information during their daily work.
+It enables retrieval of contact details and efficient management of student records.
+Optimized for a Command Line Interface (CLI), CareContacts is ideal for fast typists.
 
 <!-- * Table of Contents -->
 <page-nav-print />
